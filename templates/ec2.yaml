@@ -10,7 +10,7 @@ Resources:
     Type: AWS::EC2::Instance
     Properties:
       ImageId: ami-0cca150d127c2216f # Amazon Linux 2023 us-east-1
-      InstanceType: t2.micro
+      InstanceType: t3.micro
       SubnetId: !Ref SubnetId
       SecurityGroupIds:
         - !ImportValue SG-EC2-Ibeth-Maicol
