@@ -1,0 +1,63 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Stack 1 - Capa de Seguridad (Ibeth-Maicol)
+
+Parameters:
+  VpcId:
+    Type: AWS::EC2::VPC::Id
+
+Resources:
+  SGPublicEC2:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: SG para EC2 Estatica
+      VpcId: !Ref VpcId
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+      Tags:
+        - Key: Name
+          Value: sg-ec2-ibeth-maicol
+
+  SGALB:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: SG para el Application Load Balancer
+      VpcId: !Ref VpcId
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+      Tags:
+        - Key: Name
+          Value: sg-alb-ibeth-maicol
+
+  SGASG:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: SG para instancias del ASG (Trafico desde ALB)
+      VpcId: !Ref VpcId
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          SourceSecurityGroupId: !Ref SGALB
+      Tags:
+        - Key: Name
+          Value: sg-asg-ibeth-maicol
+
+Outputs:
+  SGPublicEC2Export:
+    Value: !Ref SGPublicEC2
+    Export:
+      Name: SG-EC2-Ibeth-Maicol
+  SGALBExport:
+    Value: !Ref SGALB
+    Export:
+      Name: SG-ALB-Ibeth-Maicol
+  SGASGExport:
+    Value: !Ref SGASG
+    Export:
+      Name: SG-ASG-Ibeth-Maicol
