@@ -44,7 +44,7 @@ Resources:
       LaunchTemplateName: lt-ibeth-maicol
       LaunchTemplateData:
         ImageId: ami-0cca150d127c2216f
-        InstanceType: t2.micro
+        InstanceType: t3.micro
         SecurityGroupIds:
           - !ImportValue SG-ASG-Ibeth-Maicol
         UserData:
