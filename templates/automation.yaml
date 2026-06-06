@@ -1,0 +1,31 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Stack 4 - Automatizacion (Ibeth-Maicol)
+
+Resources:
+  ScaleOut1:
+    Type: AWS::AutoScaling::ScheduledAction
+    Properties:
+      AutoScalingGroupName: !ImportValue ASGName-Ibeth-Maicol
+      DesiredCapacity: 4
+      StartTime: "2026-06-06T14:20:00Z" 
+
+  ScaleOut2:
+    Type: AWS::AutoScaling::ScheduledAction
+    Properties:
+      AutoScalingGroupName: !ImportValue ASGName-Ibeth-Maicol
+      DesiredCapacity: 5
+      StartTime: "2026-06-06T14:25:00Z"
+
+  ScaleIn1:
+    Type: AWS::AutoScaling::ScheduledAction
+    Properties:
+      AutoScalingGroupName: !ImportValue ASGName-Ibeth-Maicol
+      DesiredCapacity: 3
+      StartTime: "2026-06-06T14:30:00Z"
+
+  ScaleIn2:
+    Type: AWS::AutoScaling::ScheduledAction
+    Properties:
+      AutoScalingGroupName: !ImportValue ASGName-Ibeth-Maicol
+      DesiredCapacity: 2
+      StartTime: "2026-06-06T14:35:00Z"
