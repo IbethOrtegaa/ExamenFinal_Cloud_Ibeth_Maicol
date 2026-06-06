@@ -29,26 +29,26 @@ jobs:
       - name: Deploy Security Stack
         run: |
           aws cloudformation deploy \
-          --template-file templates/security.yml \
+          --template-file templates/security.yaml \
           --stack-name SecurityGroups-Ibeth-Maicol \
           --parameter-overrides VpcId=${{ env.VPC_ID }}
 
       - name: Deploy EC2 Stack
         run: |
           aws cloudformation deploy \
-          --template-file templates/ec2.yml \
+          --template-file templates/ec2.yaml \
           --stack-name EC2-Ibeth-Maicol \
           --parameter-overrides SubnetId=${{ env.SUBNET_1 }}
 
       - name: Deploy ALB-ASG Stack
         run: |
           aws cloudformation deploy \
-          --template-file templates/alb-asg.yml \
+          --template-file templates/alb-asg.yaml \
           --stack-name ALB-ASG-Ibeth-Maicol \
           --parameter-overrides VpcId=${{ env.VPC_ID }} Subnets=${{ env.SUBNETS }}
 
       - name: Deploy Automation Stack
         run: |
           aws cloudformation deploy \
-          --template-file templates/automation.yml \
+          --template-file templates/automation.yaml \
           --stack-name Automation-Ibeth-Maicol
